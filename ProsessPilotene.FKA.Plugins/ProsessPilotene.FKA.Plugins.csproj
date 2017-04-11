@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="AccountManagerHandler.cs" />
     <Compile Include="pp_accountmanager.cs" />
+    <Compile Include="pp_procurementcontract.cs" />
+    <Compile Include="ProcurmentContractHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
