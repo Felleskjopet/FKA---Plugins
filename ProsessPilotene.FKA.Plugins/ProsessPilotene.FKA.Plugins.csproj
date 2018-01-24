@@ -42,8 +42,9 @@
     <Reference Include="Microsoft.Crm.Sdk.Proxy">
       <HintPath>..\..\..\..\Users\YounesHadjji\Documents\PP\CRM-Tools\Dynamics365-SDK\SDK\Bin\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\..\..\..\Users\YounesHadjji\Documents\PP\CRM-Tools\Dynamics365-SDK\SDK\Bin\Microsoft.Xrm.Sdk.dll</HintPath>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xrm.Sdk.2016.8.2.0.713\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xrm.Sdk.Workflow">
       <HintPath>..\..\..\..\Users\YounesHadjji\Documents\PP\CRM-Tools\Dynamics365-SDK\SDK\Bin\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
@@ -64,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountManagerHandler.cs" />
+    <Compile Include="OpportunityClose.cs" />
     <Compile Include="pp_accountmanager.cs" />
     <Compile Include="pp_procurementcontract.cs" />
     <Compile Include="ProcurmentContractHandler.cs" />
@@ -71,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FKAPluginsKey.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
