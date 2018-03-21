@@ -31,16 +31,31 @@ namespace ProsessPilotene.FKA.Plugins
                 // If not, this plug-in was not registered correctly.
                 if (entity.LogicalName != "pp_procurementcontract")
                     return;
-
+                
                 // Obtain the organization service reference.
                 IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
-
                 try
                 {
-                    if (context.MessageName.ToLower() == "create")
-                        new ProcurmentContractHandler().HandleTeamRoles(postEntity, service);
+                    switch (context.MessageName.ToLower())
+                    {
+                        case "update":
+                        {
+                            //skip trace to increase performace for high volume updates                     
+                            if (context.Depth >= 1)
+                                new ProcurmentContractHandler().HandleCountryScore(postEntity, service, false);
+                            break;
+                        }
+                        case "create":
+                        {
+                            tracingService.Trace("ProsessPilotene.FKA.Plugins.pp_procurementcontract - OnCreate triggered. V.2018.03.17");
+                            ProcurmentContractHandler handler =  new ProcurmentContractHandler();
+                            handler.HandleTeamRoles(postEntity, service);
+                            tracingService.Trace(handler.HandleCountryScore(postEntity, service, true));
+                            break;
+                        }
+                    }
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
