@@ -14,22 +14,13 @@ namespace ProsessPilotene.FKA.Plugins
             try
             {
                 if (postEntity.GetAttributeValue<OptionSetValue>("pp_contractordercode").Value != 2 && !postEntity.Contains("pp_suppliercode"))
-                {
                     return;
-                    
-                }
-                else
-                {
-                    if (postEntity.GetAttributeValue<bool>("pp_approvedbysalesmanagercode").Equals(true))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        throw new InvalidPluginExecutionException(
-                            "Orderen må godkjennes av salgssjef før den kan lukkes.\n\n");
-                    }
-                }
+
+                if (postEntity.GetAttributeValue<bool>("pp_approvedbysalesmanagercode").Equals(true))
+                    return;
+
+                throw new InvalidPluginExecutionException(
+                    "Orderen må godkjennes av salgssjef før den kan lukkes.\n\n");
 
             }
             catch (Exception ex)

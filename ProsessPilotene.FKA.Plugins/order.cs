@@ -29,7 +29,7 @@ namespace ProsessPilotene.FKA.Plugins
 
                 // Verify that the target entity represents an account.
                 // If not, this plug-in was not registered correctly.
-                if (entity.LogicalName != "order")
+                if (entity.LogicalName != "salesorder")
                     return;
 
                 // Obtain the organization service reference.
