@@ -11,14 +11,18 @@ namespace ProsessPilotene.FKA.Plugins
     {
         public void ClosingRequirements(Entity postEntity, IOrganizationService service)
         {
+            // A method for TTR to check if an sales person can close the order
             try
             {
-                if (postEntity.GetAttributeValue<OptionSetValue>("pp_contractordercode").Value != 2 && !postEntity.Contains("pp_suppliercode"))
+                // Check if the order has an order type "Order" or that there is an "supplier" for the order
+                if (postEntity.GetAttributeValue<OptionSetValue>("pp_contractordercode").Value != 2 || postEntity.GetAttributeValue<OptionSetValue>("pp_suppliercode") == null)
                     return;
 
+                // Check if the order has been marked as "Approved by Sales Manager"
                 if (postEntity.GetAttributeValue<bool>("pp_approvedbysalesmanagercode").Equals(true))
                     return;
 
+                // Throw errormessage to the user
                 throw new InvalidPluginExecutionException(
                     "Orderen må godkjennes av salgssjef før den kan lukkes.\n\n");
 

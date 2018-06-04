@@ -25,9 +25,10 @@ namespace ProsessPilotene.FKA.Plugins
             {
                 // Obtain the target entity from the input parameters.
                 Entity entity = (Entity)context.InputParameters["Target"];
+                Entity preEntity = context.PreEntityImages["PreImage"];
                 Entity postEntity = context.PostEntityImages["PostImage"];
 
-                // Verify that the target entity represents an account.
+                // Verify that the target entity represents an sales order.
                 // If not, this plug-in was not registered correctly.
                 if (entity.LogicalName != "salesorder")
                     return;
@@ -36,10 +37,11 @@ namespace ProsessPilotene.FKA.Plugins
                 IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
-
                 try
                 {
-                    if (entity.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
+                    // Only for TTR
+                    // Retrieve statecode from the sales order. If not in state "Active", then don't check if the order can be closed 
+                    if (preEntity.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
                         new OrderHandler().ClosingRequirements(postEntity, service);
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
