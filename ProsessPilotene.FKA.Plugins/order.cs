@@ -35,26 +35,23 @@ namespace ProsessPilotene.FKA.Plugins
                 // Obtain the organization service reference.
                 IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-                
-            
-                    try
-                    {
-                        if (context.MessageName.ToLower() == "create")
-                            new AccountManagerHandler().HandleRoles(postEntity, service);
 
-                    if (context.MessageName.ToLower() == "update")
-                        new AccountManagerHandler().HandleRoles(postEntity, service);
+
+                try
+                {
+                    if (entity.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
+                        new OrderHandler().ClosingRequirements(postEntity, service);
                 }
-                    catch (FaultException<OrganizationServiceFault> ex)
-                    {
-                        throw new InvalidPluginExecutionException("An error occurred in the plug-in: order.cs" + ex.Message, ex);
-                    }
+                catch (FaultException<OrganizationServiceFault> ex)
+                {
+                    throw new InvalidPluginExecutionException("An error occurred in the plug-in: order.cs" + ex.Message, ex);
+                }
 
-                    catch (Exception ex)
-                    {
-                        tracingService.Trace("Plugin error: {0}", ex.ToString());
-                        throw;
-                    }
+                catch (Exception ex)
+                {
+                    tracingService.Trace("Plugin error: {0}", ex.ToString());
+                    throw;
+                }
             }
         }
     }
