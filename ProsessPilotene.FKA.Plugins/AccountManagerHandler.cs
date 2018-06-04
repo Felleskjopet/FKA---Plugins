@@ -14,6 +14,7 @@ namespace ProsessPilotene.FKA.Plugins
         {
             try
             {
+                // Test
                 var role = postEntity.GetAttributeValue<OptionSetValue>("pp_role");
                 var account = postEntity.GetAttributeValue<EntityReference>("pp_accountid");
 
