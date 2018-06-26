@@ -42,7 +42,8 @@ namespace ProsessPilotene.FKA.Plugins
                     // Only for TTR
                     // Retrieve statecode from the sales order. If not in state "Active", then don't check if the order can be closed 
                     if (preEntity.GetAttributeValue<OptionSetValue>("statecode").Value == 0)
-                        new OrderHandler().ClosingRequirements(postEntity, service);
+                        new OrderHandler().ClosingRequirements(postEntity, service, tracingService);
+
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {

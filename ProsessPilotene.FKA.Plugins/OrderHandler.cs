@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace ProsessPilotene.FKA.Plugins
 {
     internal class OrderHandler
     {
-        public void ClosingRequirements(Entity postEntity, IOrganizationService service)
+        public void ClosingRequirements(Entity postEntity, IOrganizationService service, ITracingService tracingService)
         {
             // A method for TTR to check if an sales person can close the order
             try
